@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "outDir": "build",
+    "removeComments": true,
+    "sourceMap": true,
+    // "strict": true,
+    "target": "es6"
+  },
+  "exclude": [
+    "build",
+    "node_modules",
+    "e2e"
+  ]
+}

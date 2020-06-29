@@ -1,0 +1,9 @@
+schema: http://localhost:4000/graphql
+generates:
+  graphql/types.d.ts:
+    plugins:
+      - add: '/* eslint-disable */'
+      - typescript
+    config:
+      scalars:
+        Date: Date
