@@ -1,0 +1,9 @@
+form#signup,
+form#login {
+  margin-top: 20px;
+}
+
+form#signup .buttons button:last-child,
+form#login .buttons button:last-child {
+  float: right;
+}
