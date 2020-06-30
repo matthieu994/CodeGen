@@ -18,7 +18,7 @@ const client = new ApolloClient({
   },
 });
 
-export async function verifAuth(roles: Array<string>): Promise<boolean> {
+export async function verifAuth(roles: (string | never[])[]): Promise<boolean> {
   if (!localStorage.getItem("token")) return false;
 
   return axios
@@ -32,7 +32,7 @@ export async function verifAuth(roles: Array<string>): Promise<boolean> {
 
 interface ProtectedRouteProps extends RouteProps {
   path: string;
-  roles?: Array<string>;
+  roles?: (string | never[])[];
   exact?: boolean;
   redirect: string;
 }

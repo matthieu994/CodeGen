@@ -52,15 +52,11 @@ input UserInput {
 }
 
 enum UserType {
-  SUPER_ADMIN
-  EAM
-  SAM
-  SCREEN
-  TICKET_SCANNER
+  ADMIN
+  USER
 }
 type User {
   _id: ID!
-  graphqlField: String
   firstname: String!
   lastname: String!
   email: String!

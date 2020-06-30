@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 module.exports = function (api: Router) {
   api.post("/login", async (req, res, next) => {
-    passport.authenticate("login", async (err, user: IUser, info) => {
+    passport.authenticate("login", { session: false }, async (err, user: IUser, info) => {
       try {
         if (err || !user) return res.status(401).json({ info });
 

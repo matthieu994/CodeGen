@@ -34,7 +34,7 @@ const Signup = (props: SignupProps): JSX.Element => {
 
   const onFinish = (values: Store): void => {
     axios
-      .post("/api/signup", { ...values, ...{ type: "SUPER_ADMIN" } })
+      .post("/api/signup", { ...values })
       .then((res) => {
         if (res.status === 200) {
           props.history.push("/login", { email: res.data.email });
