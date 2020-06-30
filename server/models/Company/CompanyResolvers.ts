@@ -1,8 +1,8 @@
-import { Company } from "../../models/Company";
+import { Company } from "./CompanyModel";
 import { User } from "../../models/User";
-import { Company as GqlCompany } from "../types";
+import { Company as GqlCompany } from "../../graphql/types";
 
-export const resolvers = {
+export default {
   Company: {
     owningUser: (company: GqlCompany) => {
       return User.findById(company.owningUser);
@@ -28,33 +28,3 @@ export const resolvers = {
     },
   },
 };
-
-export const typeDef = `
-extend type Query {
-  allCompany: [Company]
-  Company(id: ID!): Company
-}
-
-extend type Mutation {
-  createCompany(input: CompanyInput!): Company
-  updateCompany(id: ID!, input: CompanyInput): Company
-  deleteCompany(id: ID!): Company
-}
-
-input CompanyInput {
-  name: String
-  owningUser: ID
-  businessOfficialId: String
-  vatNumber: String
-}
-
-type Company {
-  _id: ID!
-  name: String!
-  owningUser: User!
-  businessOfficialId: String
-  vatNumber: String
-  createdAt: Date!
-  updatedAt: Date!
-}
-`;

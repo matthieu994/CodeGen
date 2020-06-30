@@ -6,7 +6,7 @@ import { typeDef as User, resolvers as UserResolvers } from "./schemas/User";
 import { typeDef as AdCampaign, resolvers as AdCampaignResolvers } from "./schemas/AdCampaign";
 import { typeDef as AlgoScoring, resolvers as AlgoScoringResolvers } from "./schemas/AlgoScoring";
 import { typeDef as Brand, resolvers as BrandResolvers } from "./schemas/Brand";
-import { typeDef as Company, resolvers as CompanyResolvers } from "./schemas/Company";
+import { typeDef as Company, resolvers as CompanyResolvers } from "../models/Company";
 import { typeDef as Product, resolvers as ProductResolvers } from "./schemas/Product";
 import { typeDef as Screen, resolvers as ScreenResolvers } from "./schemas/Screen";
 import { typeDef as Report, resolvers as ReportResolvers } from "./schemas/Report";
