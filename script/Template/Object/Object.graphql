@@ -1,0 +1,18 @@
+extend type Query {
+  allObject: [Object]
+  Object(id: ID!): Object
+}
+
+extend type Mutation {
+  createObject(input: ObjectInput!): Object
+  updateObject(id: ID!, input: ObjectInput): Object
+  deleteObject(id: ID!): Object
+}
+
+input ObjectInput {
+  $GRAPHQL_OBJECT_INPUT
+}
+
+type Object {
+  $GRAPHQL_OBJECT
+}

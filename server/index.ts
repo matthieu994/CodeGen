@@ -1,3 +1,4 @@
+import "graphql-import-node";
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
@@ -46,7 +47,12 @@ const server: ApolloServer = new ApolloServer({
     try {
       const token = req.headers.authorization || "";
       const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
-      return { _id: decoded.user._id };
+      return {
+        user: {
+          _id: decoded.user._id,
+          type: decoded.user.type,
+        },
+      };
     } catch (error) {
       return {};
     }

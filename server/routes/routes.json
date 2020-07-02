@@ -1,0 +1,4 @@
+{
+  "ADMIN": ["User", "Company"],
+  "USER": ["Shop", "Test"]
+}

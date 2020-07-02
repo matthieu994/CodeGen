@@ -34,7 +34,7 @@ module.exports = function (api: Router) {
           const user = await User.findOne({ email });
           if (!user) return done(null, false, { message: "USER_NOT_FOUND" });
 
-          const validate = await user.isValidPassword(password);
+          const validate = await (user as IUser).isValidPassword(password);
           if (!validate) return done(null, false, { message: "BAD_PASSWORD" });
 
           return done(null, user, { message: "LOGGED_IN" });

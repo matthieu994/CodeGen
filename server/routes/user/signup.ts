@@ -7,17 +7,18 @@ import { Error } from "mongoose";
 module.exports = function (api: Router) {
   api.post("/signup", async (req, res, next) => {
     passport.authenticate("signup", { session: false }, async (err, user: IUser, info) => {
-      try {
-        // Return err for debug
-        if (err || !user) return res.status(401).json({ err, info });
-
-        return res.json({
-          info: { message: "SIGNUP_SUCCESS" },
+      if (err || !user) {
+        if (err instanceof Error.ValidationError)
+          res.status(401).send({ err, info: { message: "MISSING FIELDS" } });
+        else if (err.code === 11000)
+          res.status(401).send({ err, info: { message: "USER EXISTS" } });
+        else res.status(401).send({ err, info: { message: "UNEXPECTED ERROR" } });
+      } else if (user)
+        return res.send({
+          info,
           email: user.email,
         });
-      } catch (error) {
-        return next(error);
-      }
+      else return next(err);
     })(req, res, next);
   });
 
@@ -29,23 +30,19 @@ module.exports = function (api: Router) {
         passwordField: "password",
         passReqToCallback: true,
       },
-      async (req, email, password, done) => {
+      async (req, email, password, callback) => {
         try {
-          const { firstname, lastname, passwordCheck, type } = req.body;
-          if (passwordCheck !== password) return done(null, false, { message: "PASSWORD_ERROR" });
+          const { firstname, lastname, passwordCheck } = req.body;
+          if (passwordCheck !== password)
+            return callback(null, null, { message: "PASSWORD ERROR" });
 
-          const user: IUserCreate = { firstname, lastname, email, password, type: "USER" };
-          User.create(user, (err, createdUser) => {
-            if (err) {
-              if (err instanceof Error.ValidationError)
-                return done(err, false, { message: "MISSING_FIELDS" });
-              else if (err.code === 11000) return done(null, false, { message: "USER_EXISTS" });
-              else return done(err, false, { message: "unexpected error" });
-            }
-            return done(null, createdUser);
+          const user = { firstname, lastname, email, password, type: "USER" };
+          User.create(user, (error, createdUser) => {
+            if (error) callback(error, null);
+            else callback(null, createdUser, { message: "SIGNUP SUCCESS" });
           });
         } catch (error) {
-          done(error);
+          callback(error, null);
         }
       }
     )

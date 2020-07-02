@@ -1,0 +1,35 @@
+extend type Query {
+  getCurrentUser: User
+  allUser: [User]
+  User(id: ID!): User
+}
+extend type Mutation {
+  createUser(input: UserInput): User
+  updateUser(id: ID!, input: UserInput): User
+  deleteUser(id: ID!): User
+}
+input UserInput {
+  firstname: String
+  lastname: String
+  email: String
+  password: String
+  phone: String
+  type: UserType
+}
+enum UserType {
+  ADMIN
+  USER
+}
+type User {
+  _id: ID!
+  firstname: String!
+  lastname: String!
+  email: String!
+  password: String!
+  phone: String!
+  type: UserType!
+  isValidated: Boolean!
+  isDeleted: Boolean!
+  createdAt: Date!
+  updatedAt: Date!
+}

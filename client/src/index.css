@@ -12,6 +12,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.ant-layout-sider {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+}
+
+.site-layout {
+  margin-left: 200px;
+}
+
+.ant-layout-content {
+  margin: 24px 16px 0;
+  overflow: initial;
+}
+
 .loading-container {
   text-align: center;
   background: rgba(0, 0, 0, 0.05);

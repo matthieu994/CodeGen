@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import { Form, Input, Button, notification } from "antd";
 import { Store } from "antd/lib/form/interface";
@@ -40,16 +40,16 @@ const Signup = (props: SignupProps): JSX.Element => {
           props.history.push("/login", { email: res.data.email });
           notification["success"]({
             key: "sameAlert",
-            message: "Signup success!",
+            message: res.data.info.message,
             placement: "topLeft",
             duration: 2.5,
           });
         }
       })
-      .catch((err) => {
+      .catch((err: AxiosError) => {
         notification["error"]({
           key: "sameAlert",
-          message: "Signup error!",
+          message: err.response?.data.info?.message,
           placement: "topLeft",
           duration: 2.5,
         });

@@ -1,13 +1,19 @@
-import React, { Component, Props, ReactNode } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import React, { Component } from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import Axios from "axios";
 import { Layout } from "antd";
 import Links from "./Links";
 import Routes from "./Routes";
 const { Content, Sider } = Layout;
 
-class App extends Component {
-  constructor(props: Props<ReactNode>) {
+class App extends Component<AppProps> {
+  private unlisten: Function;
+
+  state = {
+    links: [],
+  };
+
+  constructor(props: AppProps) {
     super(props);
     if (process.env.REACT_APP_DEV_PROXY) Axios.defaults.baseURL = process.env.REACT_APP_DEV_PROXY;
 
@@ -18,30 +24,45 @@ class App extends Component {
       },
       (error) => Promise.reject(error)
     );
+
+    this.unlisten = (): null => null;
+  }
+
+  componentDidMount(): void {
+    this.getLinks();
+    this.unlisten = this.props.history.listen(() => {
+      this.getLinks();
+    });
+  }
+
+  getLinks(): void {
+    Axios.post("/api/auth/links")
+      .then((res) => {
+        if (res)
+          return this.setState({ links: (res.data.links as Array<string>).concat("logout") });
+      })
+      .catch(() => this.setState({ links: ["login", "signup"] }));
+  }
+
+  componentWillUnmount(): void {
+    this.unlisten();
   }
 
   render(): JSX.Element {
     return (
-      <Router>
-        <Layout>
-          <Sider
-            style={{
-              overflow: "auto",
-              height: "100vh",
-              position: "fixed",
-              left: 0,
-            }}
-          >
-            <Links />
-          </Sider>
-          <Layout className="site-layout" style={{ marginLeft: 200 }}>
-            <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-              <Routes />
-            </Content>
-          </Layout>
+      <Layout>
+        <Sider>
+          <Links links={this.state.links} />
+        </Sider>
+        <Layout className="site-layout">
+          <Content>
+            <Routes />
+          </Content>
         </Layout>
-      </Router>
+      </Layout>
     );
   }
 }
-export default App;
+
+interface AppProps extends RouteComponentProps<any, any, any>, React.Props<any> {}
+export default withRouter(App);

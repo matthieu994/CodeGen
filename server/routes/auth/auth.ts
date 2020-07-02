@@ -3,7 +3,7 @@ import passport from "passport";
 import { Strategy as JWTstrategy, ExtractJwt } from "passport-jwt";
 import { Router, Request } from "express";
 import { User, IUser, UserType } from "../../models/User";
-const routes = require("../../generated/routes.json");
+const routes = require("../routes.json");
 
 export interface IRequestUser extends Request {
   user: IUser;
