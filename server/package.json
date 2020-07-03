@@ -6,7 +6,7 @@
   "scripts": {
     "lint:fix": "eslint --fix --ext .ts .",
     "start": "node build/server",
-    "build": "webpack --config webpack.$NODE_ENV.js",
+    "build": "tsc",
     "dev": "nodemon -e ts,json,graphql --exec node -r ts-node/register ./index.ts",
     "generate": "graphql-codegen"
   },

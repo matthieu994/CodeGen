@@ -1,5 +1,4 @@
 /* eslint-disable */
-import gql from 'graphql-tag';
 type Maybe<T> = T | null;
 type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 
@@ -76,5 +75,3 @@ type User = {
   createdAt: Scalars['Date'];
   updatedAt: Scalars['Date'];
 };
-
-
