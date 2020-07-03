@@ -1,6 +1,5 @@
 import React from "react";
 import gql from "graphql-tag";
-import { User, Company } from "../graphql/types.d";
 import { SortOrder } from "antd/lib/table/interface";
 import List from "../List/List";
 
@@ -57,7 +56,7 @@ const columns = [
     title: "Company Name", // Displayed name
     dataIndex: "name", // To retrieve GraphQL data
     defaultSortOrder: "ascend" as SortOrder,
-    sorter: (a: Company, b: Company): number => a.name.localeCompare(b.name),
+    sorter: (a: any, b: any): number => a.name.localeCompare(b.name),
     editable: true,
     required: true,
   },
@@ -74,8 +73,8 @@ const columns = [
   {
     title: "Owning User",
     dataIndex: "owningUser",
-    render: (user: User): string => `${user.firstname} ${user.lastname}`,
-    sorter: (a: Company, b: Company): number =>
+    render: (user: any): string => `${user.firstname} ${user.lastname}`,
+    sorter: (a: any, b: any): number =>
       (a.owningUser.firstname + a.owningUser.lastname).localeCompare(
         b.owningUser.firstname + b.owningUser.lastname
       ),

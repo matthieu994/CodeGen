@@ -10,5 +10,6 @@ generates:
       withHOC: false
       withHooks: true
       withComponent: false
+      noExport: true
       scalars:
         Date: Date

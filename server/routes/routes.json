@@ -1,4 +1,4 @@
 {
-  "ADMIN": ["User", "Company"],
+  "ADMIN": ["*"],
   "USER": ["Shop", "Test"]
 }

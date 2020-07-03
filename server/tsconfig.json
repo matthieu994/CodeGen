@@ -9,8 +9,11 @@
     "outDir": "build",
     "removeComments": true,
     "sourceMap": true,
-    // "strict": true,
+    "types": [
+      "node"
+    ],
     "target": "es6"
+    // "strict": true,
   },
   "exclude": [
     "build",

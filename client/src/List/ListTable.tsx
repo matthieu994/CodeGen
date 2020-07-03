@@ -95,15 +95,14 @@ export default class ListTable extends Component<ListTableProps> {
         <Form form={this.props.form}>
           <Table
             className="table-content"
-            key={this.props.data.length}
             components={{
               body: {
                 cell: EditableCell,
               },
             }}
             {...tableConfiguration}
-            rowKey={(el): string => el.name}
-            rowClassName={(el): string => el.key}
+            rowKey={(el): string => el._id}
+            rowClassName={(el): string => el.__typename}
             columns={this.props.columns}
             dataSource={this.props.data}
           ></Table>

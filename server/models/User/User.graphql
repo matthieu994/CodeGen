@@ -13,8 +13,6 @@ input UserInput {
   lastname: String
   email: String
   password: String
-  phone: String
-  type: UserType
 }
 enum UserType {
   ADMIN
@@ -26,7 +24,6 @@ type User {
   lastname: String!
   email: String!
   password: String!
-  phone: String!
   type: UserType!
   isValidated: Boolean!
   isDeleted: Boolean!

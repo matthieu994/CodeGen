@@ -3,11 +3,14 @@ import passport from "passport";
 import { Strategy as JWTstrategy, ExtractJwt } from "passport-jwt";
 import { Router, Request } from "express";
 import { User, IUser, UserType } from "../../models/User";
+import fs from "fs";
 const routes = require("../routes.json");
 
 export interface IRequestUser extends Request {
   user: IUser;
 }
+
+let allLinks = [];
 
 // Checks if user is one of the types specified
 // Default to "all" authentication
@@ -29,6 +32,16 @@ module.exports = function (auth: Router) {
 
   // Send links which users has access to
   auth.post("/links", (req: IRequestUser, res) => {
+    if (routes[req.user.type][0] === "*") {
+      if (allLinks.length < 1)
+        allLinks = fs
+          .readdirSync("./models/")
+          .filter((file) => fs.statSync("./models/" + file).isDirectory());
+
+      return res.status(200).send({
+        links: allLinks,
+      });
+    }
     return res.status(200).send({
       links: req.user.type ? routes[req.user.type] : [],
     });

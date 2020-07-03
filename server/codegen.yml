@@ -1,9 +1,10 @@
 schema: http://localhost:4000/graphql
 generates:
-  graphql/types.d.ts:
+  types.d.ts:
     plugins:
-      - add: '/* eslint-disable */'
+      - add: "/* eslint-disable */"
       - typescript
     config:
+      noExport: true
       scalars:
         Date: Date

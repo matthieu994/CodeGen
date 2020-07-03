@@ -41,7 +41,10 @@ class App extends Component<AppProps> {
         if (res)
           return this.setState({ links: (res.data.links as Array<string>).concat("logout") });
       })
-      .catch(() => this.setState({ links: ["login", "signup"] }));
+      .catch(() => {
+        localStorage.removeItem("token");
+        this.setState({ links: ["login", "signup"] });
+      });
   }
 
   componentWillUnmount(): void {
@@ -56,7 +59,7 @@ class App extends Component<AppProps> {
         </Sider>
         <Layout className="site-layout">
           <Content>
-            <Routes />
+            <Routes routes={this.state.links} />
           </Content>
         </Layout>
       </Layout>
