@@ -27,8 +27,4 @@ Server port
 ### MONGO_URL
 MongoDB dev database
 ### JWT_SECRET
-JWT Secret Key 
-
-## Demo
-
-See the **demo** branch for a demo !
+JWT Secret Key
