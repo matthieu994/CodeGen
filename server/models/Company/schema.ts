@@ -1,11 +1,12 @@
-import { Schema } from "mongoose";
+const definition = {
+  name: { type: String, required: true, unique: true },
+  owningUser: { type: "ObjectId", ref: "User", required: true },
+  businessOfficialId: { type: String },
+  vatNumber: { type: String },
+};
+const options = { timestamps: true };
 
 export default {
-  definition: {
-    name: { type: String, required: true, unique: true },
-    owningUser: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    businessOfficialId: { type: String },
-    vatNumber: { type: String },
-  },
-  options: { timestamps: true },
+  definition,
+  options,
 };

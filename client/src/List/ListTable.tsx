@@ -6,7 +6,7 @@ import "./style.css";
 const { Option } = Select;
 
 interface ListTableProps {
-  refetch: any;
+  refetch: Function;
   loading: any;
   data: any;
   form: any;
@@ -82,7 +82,7 @@ const EditableCell = ({
 export default class ListTable extends Component<ListTableProps> {
   render(): JSX.Element {
     return (
-      <Col span={18} offset={3}>
+      <Col xs={{ span: 24, offset: 0 }} md={{ span: 20, offset: 2 }} xl={{ span: 18, offset: 3 }}>
         <Button
           type="primary"
           onClick={(): void => this.props.refetch()}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, InputNumber } from "antd";
 import { Store } from "antd/lib/form/interface";
 import { ColumnsType } from "antd/lib/table";
 import { ColumnRecord, ObjectType } from "./List";
@@ -38,6 +38,8 @@ export default function Create({
           </Option>
         ))}
       </Select>
+    ) : input.type === "number" ? (
+      <InputNumber />
     ) : (
       <Input />
     );

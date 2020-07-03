@@ -19,6 +19,7 @@ declare global {
 }
 
 export interface ColumnRecord extends ColumnType<any> {
+  type?: string;
   required?: boolean;
   editable?: boolean;
   queryIndex?: string;
@@ -30,12 +31,14 @@ export default function List({
   create: CREATE_MUTATION,
   update: UPDATE_MUTATION,
   delete: DELETE_MUTATION,
+  disableCreate,
 }: {
   columns: ColumnProps<any>[];
   all: DocumentNode;
   create: DocumentNode;
   update: DocumentNode;
   delete: DocumentNode;
+  disableCreate?: boolean;
 }): JSX.Element {
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
@@ -56,12 +59,15 @@ export default function List({
   });
   const [deleteObject] = useMutation(DELETE_MUTATION, {
     update(cache, { data: { deleteObject } }) {
-      const { allObjects, ...rest } = cache.readQuery<AllObjectsProps | any>({ query: ALL_QUERY });
-      const index = allObjects.findIndex((record: ObjectType) => record._id === deleteObject._id);
-      if (index > -1) allObjects.splice(index, 1);
+      const { allObjects, ...rest }: { allObjects: Array<any> } = cache.readQuery<
+        AllObjectsProps | any
+      >({ query: ALL_QUERY });
       cache.writeQuery({
         query: ALL_QUERY,
-        data: { allObjects, ...rest },
+        data: {
+          allObjects: allObjects.filter((el: ObjectType) => el._id !== deleteObject._id),
+          ...rest,
+        },
       });
     },
   });
@@ -188,11 +194,13 @@ export default function List({
 
   return (
     <>
-      <Row>
-        <Col span={18} offset={3}>
-          <Create inputs={columns} data={queryData} createObject={handleCreate} />
-        </Col>
-      </Row>
+      {!disableCreate && (
+        <Row>
+          <Col xs={{ span: 12, offset: 6 }}>
+            <Create inputs={columns} data={queryData} createObject={handleCreate} />
+          </Col>
+        </Row>
+      )}
       <Row>
         <ListTable
           refetch={refetch}

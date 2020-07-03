@@ -75,6 +75,7 @@ export default function UserRoute(): JSX.Element {
       create={CREATE_MUTATION}
       update={UPDATE_MUTATION}
       delete={DELETE_MUTATION}
+      disableCreate={true}
     />
   );
 }

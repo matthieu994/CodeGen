@@ -22,6 +22,6 @@ type Company {
   owningUser: User!
   businessOfficialId: String
   vatNumber: String
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: Date
+  updatedAt: Date
 }

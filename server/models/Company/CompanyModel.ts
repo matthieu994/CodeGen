@@ -10,8 +10,6 @@ export interface ICompany extends Document {
   owningUser: IUser;
   businessOfficialId?: string;
   vatNumber?: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export const Company = model<ICompany>("Company", CompanySchema);

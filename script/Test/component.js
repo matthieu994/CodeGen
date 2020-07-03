@@ -21,6 +21,7 @@ const columns = [
     title: "Number",
     dataIndex: "number",
     editable: true,
+    type: "number",
   },
   {
     title: "Owner",
