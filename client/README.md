@@ -17,3 +17,7 @@ Generates the typescript GraphQL types, from the server.
 ### `npm start`
 
 Runs the app in production mode.
+
+## Demo
+
+See the **demo** branch for a demo !
